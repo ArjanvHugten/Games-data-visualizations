@@ -7,8 +7,8 @@
   <meta name="author" content="">
 
   <link rel="shortcut icon" type="image/png" href="images/icon.png" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <link href="css/custom.css" rel="stylesheet">
 
   <title>Game sales</title>
@@ -53,10 +53,10 @@
               </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="ratings.html">
-                    <span data-feather="file"></span>
-                    Ratings
-                </a>
+              <a class="nav-link" href="ratings.html">
+                <span data-feather="file"></span>
+                Ratings
+              </a>
             </li>
           </ul>
 
@@ -96,123 +96,46 @@
       </nav>
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Consoles</h1>
         </div>
         <p>
-          On this page you can have a look into the top 5 consoles in the period of gaming till 2016. The PS2 is the console with the
+          On this page you can have a look into the top 5 consoles in the period of gaming till 2016. The PS2 is the
+          console with the
           most sales in this period followed by the XBOX, PS3, Wii and DS.
         </p>
 
 
         <svg id="top5consoles"></svg>
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 40 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var x = d3.scaleBand().rangeRound([0, width], .05);
-
-            var y = d3.scaleLinear().rangeRound([height, 0]);
-
-            var svg = d3.select("#top5consoles")
-              .attr("width", width + margin.left + margin.right)
-              .attr("height", height + margin.top + margin.bottom)
-              .append("g")
-              .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var consoles = {};
-              consoles['PS2'] = 0;
-              consoles['PS3'] = 0;
-              consoles['Wii'] = 0;
-              consoles['DS'] = 0;
-              consoles['XBOX360'] = 0;
-
-              data.forEach(function (d) {
-                if (d.Platform == 'PS2') {
-                  consoles['PS2'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'PS3') {
-                  consoles['PS3'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'Wii') {
-                  consoles['Wii'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'DS') {
-                  consoles['DS'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'X360') {
-                  consoles['XBOX360'] += parseFloat(d.Global_Sales) || 0
-                }
-              });
-
-              var data = [];
-              data.push({ console: 'PS2', sales: consoles['PS2'] });
-              data.push({ console: 'PS3', sales: consoles['PS3'] });
-              data.push({ console: 'Wii', sales: consoles['Wii'] });
-              data.push({ console: 'DS', sales: consoles['DS'] });
-              data.push({ console: 'XBOX360', sales: consoles['XBOX360'] });
-
-              x.domain(Object.keys(consoles).map(function (d) {
-                return d;
-              }));
-              y.domain([0, d3.max(Object.values(consoles), function (d) {
-                return Number(d);
-              })]);
-
-              svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x))
-
-              svg.append("g")
-                .call(d3.axisLeft(y))
-                .append("text")
-                .attr("fill", "#000")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", "0.71em")
-                .attr("text-anchor", "end")
-                .text("Total sales in millions");
-
-              svg.selectAll(".bar")
-                .data(data)
-                .enter().append("rect")
-                .attr("fill", "steelblue")
-                .attr("class", "bar")
-                .attr("x", function (d) {
-                  return 20 + x(d.console);
-                })
-                .attr("y", function (d) {
-                  return y(Number(d.sales));
-                })
-                .attr("width", x.bandwidth() - 40)
-                .attr("height", function (d) {
-                  return height - y(Number(d.sales));
-                });
-
-              console.log(consoles);
-            });
-          })(); 
-        </script>
 
         <div>
           <h5>Playstation 2</h5>
-          <p>The PlayStation 2 (PS2) is a home video game console that was developed by Sony Computer Entertainment. It is the
-            successor to the original PlayStation console and is the second installment in the PlayStation lineup of consoles.
-            It was released in 2000 and competed with Sega's Dreamcast, Nintendo's GameCube and Microsoft's Xbox in the sixth
-            generation of video game consoles. Announced in 1999, the PlayStation 2 offered backwards compatibility for its
-            predecessor's DualShock controller, as well as for its games. The PlayStation 2 is the best-selling video game
-            console of all time, selling over 155 million units, with 150 million confirmed by Sony in 2011. More than 3,874
-            game titles have been released for the PS2 since launch, and more than 1.5 billion copies have been sold. Sony
-            later manufactured several smaller, lighter revisions of the console known as Slimline models in 2004. In 2006,
-            Sony announced and launched its successor, the PlayStation 3. Even with the release of its successor, the PlayStation
+          <p>The PlayStation 2 (PS2) is a home video game console that was developed by Sony Computer Entertainment. It
+            is the
+            successor to the original PlayStation console and is the second installment in the PlayStation lineup of
+            consoles.
+            It was released in 2000 and competed with Sega's Dreamcast, Nintendo's GameCube and Microsoft's Xbox in the
+            sixth
+            generation of video game consoles. Announced in 1999, the PlayStation 2 offered backwards compatibility for
+            its
+            predecessor's DualShock controller, as well as for its games. The PlayStation 2 is the best-selling video
+            game
+            console of all time, selling over 155 million units, with 150 million confirmed by Sony in 2011. More than
+            3,874
+            game titles have been released for the PS2 since launch, and more than 1.5 billion copies have been sold.
+            Sony
+            later manufactured several smaller, lighter revisions of the console known as Slimline models in 2004. In
+            2006,
+            Sony announced and launched its successor, the PlayStation 3. Even with the release of its successor, the
+            PlayStation
             2 remained popular well into the seventh generation and continued to be produced until January 4, 2013, when
-            Sony finally announced that the PlayStation 2 had been discontinued after 12 years of production – one of the
-            longest runs for a video game console. Despite the announcement, new games for the console continued to be produced
-            until the end of 2013, including Final Fantasy XI: Seekers of Adoulin for Japan, FIFA 13 for North America, and
+            Sony finally announced that the PlayStation 2 had been discontinued after 12 years of production – one of
+            the
+            longest runs for a video game console. Despite the announcement, new games for the console continued to be
+            produced
+            until the end of 2013, including Final Fantasy XI: Seekers of Adoulin for Japan, FIFA 13 for North America,
+            and
             Pro Evolution Soccer 2014 for Europe. Repair services for the system in Japan ended on September 7, 2018.
             <a href="https://en.wikipedia.org/wiki/PlayStation_2">Source wikipedia</a>
           </p>
@@ -222,55 +145,95 @@
 
         <div>
           <h5>XBOX 360</h5>
-          <p>The Xbox 360 is a home video game console developed by Microsoft. As the successor to the original Xbox, it is
-            the second console in the Xbox series. It competed with Sony's PlayStation 3 and Nintendo's Wii as part of the
-            seventh generation of video game consoles. It was officially unveiled on MTV on May 12, 2005, with detailed launch
-            and game information announced later that month at the 2005 E3 expo. The Xbox 360 features an online service,
-            Xbox Live, which was expanded from its previous iteration on the original Xbox and received regular updates during
-            the console's lifetime. Available in free and subscription-based varieties, Xbox Live allows users to: play games
-            online; download games (through Xbox Live Arcade) and game demos; purchase and stream music, television programs,
-            and films through the Xbox Music and Xbox Video portals; and access third-party content services through media
-            streaming applications. In addition to online multimedia features, it allows users to stream media from local
-            PCs. Several peripherals have been released, including wireless controllers, expanded hard drive storage, and
-            the Kinect motion sensing camera. The release of these additional services and peripherals helped the Xbox brand
-            grow from gaming-only to encompassing all multimedia, turning it into a hub for living-room computing entertainment.
-            Launched worldwide across 2005–2006, the Xbox 360 was initially in short supply in many regions, including North
+          <p>The Xbox 360 is a home video game console developed by Microsoft. As the successor to the original Xbox, it
+            is
+            the second console in the Xbox series. It competed with Sony's PlayStation 3 and Nintendo's Wii as part of
+            the
+            seventh generation of video game consoles. It was officially unveiled on MTV on May 12, 2005, with detailed
+            launch
+            and game information announced later that month at the 2005 E3 expo. The Xbox 360 features an online
+            service,
+            Xbox Live, which was expanded from its previous iteration on the original Xbox and received regular updates
+            during
+            the console's lifetime. Available in free and subscription-based varieties, Xbox Live allows users to: play
+            games
+            online; download games (through Xbox Live Arcade) and game demos; purchase and stream music, television
+            programs,
+            and films through the Xbox Music and Xbox Video portals; and access third-party content services through
+            media
+            streaming applications. In addition to online multimedia features, it allows users to stream media from
+            local
+            PCs. Several peripherals have been released, including wireless controllers, expanded hard drive storage,
+            and
+            the Kinect motion sensing camera. The release of these additional services and peripherals helped the Xbox
+            brand
+            grow from gaming-only to encompassing all multimedia, turning it into a hub for living-room computing
+            entertainment.
+            Launched worldwide across 2005–2006, the Xbox 360 was initially in short supply in many regions, including
+            North
             America and Europe. The earliest versions of the console suffered from a high failure rate, indicated by the
-            so-called "Red Ring of Death", necessitating an extension of the device's warranty period. Microsoft released
-            two redesigned models of the console: the Xbox 360 S in 2010, and the Xbox 360 E in 2013. As of June 2014, 84
-            million Xbox 360 consoles have been sold worldwide, making it the sixth-highest-selling video game console in
-            history, and the highest-selling console made by an American company. Although not the best-selling console of
-            its generation, the Xbox 360 was deemed by TechRadar to be the most influential through its emphasis on digital
+            so-called "Red Ring of Death", necessitating an extension of the device's warranty period. Microsoft
+            released
+            two redesigned models of the console: the Xbox 360 S in 2010, and the Xbox 360 E in 2013. As of June 2014,
+            84
+            million Xbox 360 consoles have been sold worldwide, making it the sixth-highest-selling video game console
+            in
+            history, and the highest-selling console made by an American company. Although not the best-selling console
+            of
+            its generation, the Xbox 360 was deemed by TechRadar to be the most influential through its emphasis on
+            digital
             media distribution and multiplayer gaming on Xbox Live. The Xbox 360's successor, the Xbox One, was released
-            on November 22, 2013. On April 20, 2016, Microsoft announced that it would end the production of new Xbox 360
-            hardware, although the company will continue to support the platform. <a href="https://en.wikipedia.org/wiki/Xbox_360">Source wikipedia</a></p>
+            on November 22, 2013. On April 20, 2016, Microsoft announced that it would end the production of new Xbox
+            360
+            hardware, although the company will continue to support the platform. <a
+              href="https://en.wikipedia.org/wiki/Xbox_360">Source wikipedia</a></p>
           <svg id="svg_top_genres_xbox360" class="top_genres"></svg>
           <svg id="svg_top_publishers_xbox360"></svg>
         </div>
 
         <div>
           <h5>Playstation 3</h5>
-          <p>The PlayStation 3 (PS3) is a home video game console developed by Sony Computer Entertainment. It is the successor
-            to PlayStation 2, and is part of the PlayStation brand of consoles. It was first released on November 11, 2006,
-            in Japan, November 17, 2006, in North America, and March 23, 2007, in Europe and Australia. The PlayStation 3
-            competed mainly against consoles such as Microsoft's Xbox 360 and Nintendo's Wii as part of the seventh generation
-            of video game consoles. The console was first officially announced at E3 2005, and was released at the end of
-            2006. It was the first console to use Blu-ray Disc as its primary storage medium. The console was the first PlayStation
-            to integrate social gaming services, including being the first to introduce Sony's social gaming service, PlayStation
-            Network, and its remote connectivity with PlayStation Portable and PlayStation Vita, being able to remote control
-            the console from the devices. In September 2009, the Slim model of the PlayStation 3 was released. It no longer
-            provided the hardware ability to run PS2 games. It was lighter and thinner than the original version, and featured
-            a redesigned logo and marketing design, as well as a minor start-up change in software. A Super Slim variation
-            was then released in late 2012, further refining and redesigning the console. During its early years, the system
-            had a critically negative reception, due to its high price ($599 for a 60 gigabyte model, and $499 for a 20 GB
-            model), a complex processor architecture and a lack of quality games, but was praised for its Blu-ray capabilities
-            and "untapped potential". The reception would get more positive over time. The system had a slow start in the
-            market but managed to recover, particularly after the introduction of the Slim model. Its successor, the PlayStation
-            4, was released later in November 2013. On September 29, 2015, Sony confirmed that sales of the PlayStation 3
+          <p>The PlayStation 3 (PS3) is a home video game console developed by Sony Computer Entertainment. It is the
+            successor
+            to PlayStation 2, and is part of the PlayStation brand of consoles. It was first released on November 11,
+            2006,
+            in Japan, November 17, 2006, in North America, and March 23, 2007, in Europe and Australia. The PlayStation
+            3
+            competed mainly against consoles such as Microsoft's Xbox 360 and Nintendo's Wii as part of the seventh
+            generation
+            of video game consoles. The console was first officially announced at E3 2005, and was released at the end
+            of
+            2006. It was the first console to use Blu-ray Disc as its primary storage medium. The console was the first
+            PlayStation
+            to integrate social gaming services, including being the first to introduce Sony's social gaming service,
+            PlayStation
+            Network, and its remote connectivity with PlayStation Portable and PlayStation Vita, being able to remote
+            control
+            the console from the devices. In September 2009, the Slim model of the PlayStation 3 was released. It no
+            longer
+            provided the hardware ability to run PS2 games. It was lighter and thinner than the original version, and
+            featured
+            a redesigned logo and marketing design, as well as a minor start-up change in software. A Super Slim
+            variation
+            was then released in late 2012, further refining and redesigning the console. During its early years, the
+            system
+            had a critically negative reception, due to its high price ($599 for a 60 gigabyte model, and $499 for a 20
+            GB
+            model), a complex processor architecture and a lack of quality games, but was praised for its Blu-ray
+            capabilities
+            and "untapped potential". The reception would get more positive over time. The system had a slow start in
+            the
+            market but managed to recover, particularly after the introduction of the Slim model. Its successor, the
+            PlayStation
+            4, was released later in November 2013. On September 29, 2015, Sony confirmed that sales of the PlayStation
+            3
             were to be discontinued in New Zealand, but the system remained in production in other markets. Shipments of
-            new units to Europe and Australia ended in March 2016, followed by North America which ended in October 2016.
-            Heading into 2017, Japan was the last territory where new units were still being produced until May 29, 2017,
-            when Sony confirmed the PlayStation 3 was discontinued in Japan. <a href="https://en.wikipedia.org/wiki/PlayStation_3">Source wikipedia</a>
+            new units to Europe and Australia ended in March 2016, followed by North America which ended in October
+            2016.
+            Heading into 2017, Japan was the last territory where new units were still being produced until May 29,
+            2017,
+            when Sony confirmed the PlayStation 3 was discontinued in Japan. <a
+              href="https://en.wikipedia.org/wiki/PlayStation_3">Source wikipedia</a>
           </p>
           <svg id="svg_top_genres_ps3" class="top_genres"></svg>
           <svg id="svg_top_publishers_ps3"></svg>
@@ -279,25 +242,42 @@
         <div>
           <h5>Wii</h5>
           <p>
-            The Wii is a home video game console released by Nintendo on November 19, 2006. As a seventh-generation console, the Wii
-            competed with Microsoft's Xbox 360 and Sony's PlayStation 3. Nintendo states that its console targets a broader
-            demographic than that of the two others. As of the first quarter of 2016, the Wii led its generation over the
-            PlayStation 3 and Xbox 360 in worldwide sales, with more than 101 million units sold; in December 2009, the console
-            broke the sales record for a single month in the United States. The Wii introduced the Wii Remote controller,
-            which can be used as a handheld pointing device and which detects movement in three dimensions. Another feature
-            of the console is the now defunct WiiConnect24, which enabled Wii to receive messages and updates over the Internet
-            while in standby mode. Like other seventh-generation consoles, it features a game download service, called "Virtual
-            Console", which features emulated games from past Nintendo consoles. It succeeded the GameCube, and early models
-            are fully backward-compatible with all GameCube games and most accessories. Nintendo first spoke of the console
-            at the E3 2004 press conference and later unveiled it at E3 2005. Nintendo CEO Satoru Iwata revealed a prototype
-            of the controller at the September 2005 Tokyo Game Show. At E3 2006, the console won the first of several awards.
-            By December 8, 2006, it had completed its launch in the four key markets. In late 2011, Nintendo released a reconfigured
+            The Wii is a home video game console released by Nintendo on November 19, 2006. As a seventh-generation
+            console, the Wii
+            competed with Microsoft's Xbox 360 and Sony's PlayStation 3. Nintendo states that its console targets a
+            broader
+            demographic than that of the two others. As of the first quarter of 2016, the Wii led its generation over
+            the
+            PlayStation 3 and Xbox 360 in worldwide sales, with more than 101 million units sold; in December 2009, the
+            console
+            broke the sales record for a single month in the United States. The Wii introduced the Wii Remote
+            controller,
+            which can be used as a handheld pointing device and which detects movement in three dimensions. Another
+            feature
+            of the console is the now defunct WiiConnect24, which enabled Wii to receive messages and updates over the
+            Internet
+            while in standby mode. Like other seventh-generation consoles, it features a game download service, called
+            "Virtual
+            Console", which features emulated games from past Nintendo consoles. It succeeded the GameCube, and early
+            models
+            are fully backward-compatible with all GameCube games and most accessories. Nintendo first spoke of the
+            console
+            at the E3 2004 press conference and later unveiled it at E3 2005. Nintendo CEO Satoru Iwata revealed a
+            prototype
+            of the controller at the September 2005 Tokyo Game Show. At E3 2006, the console won the first of several
+            awards.
+            By December 8, 2006, it had completed its launch in the four key markets. In late 2011, Nintendo released a
+            reconfigured
             model, the "Wii Family Edition", which lacks Nintendo GameCube compatibility; this model was not released in
-            Japan. The Wii Mini, Nintendo's first major console redesign since the compact SNES, succeeded the standard Wii
+            Japan. The Wii Mini, Nintendo's first major console redesign since the compact SNES, succeeded the standard
+            Wii
             model and was released first in Canada on December 7, 2012. The Wii Mini can only play Wii optical discs, as
-            it omits GameCube compatibility and all networking capabilities; this model was not released in Japan, Australia,
-            or New Zealand. The Wii's successor, the Wii U, was released on November 18, 2012. On October 20, 2013, Nintendo
-            confirmed it had discontinued production of the Wii in Japan and Europe. <a href="https://en.wikipedia.org/wiki/Wii">Source wikipedia</a>
+            it omits GameCube compatibility and all networking capabilities; this model was not released in Japan,
+            Australia,
+            or New Zealand. The Wii's successor, the Wii U, was released on November 18, 2012. On October 20, 2013,
+            Nintendo
+            confirmed it had discontinued production of the Wii in Japan and Europe. <a
+              href="https://en.wikipedia.org/wiki/Wii">Source wikipedia</a>
           </p>
           <svg id="svg_top_genres_wii" class="top_genres"></svg>
           <svg id="svg_top_publishers_wii"></svg>
@@ -305,264 +285,48 @@
 
         <div>
           <h5>Nintendo DS</h5>
-          <p>The Nintendo DS, or simply DS, is a dual-screen handheld game console developed and released by Nintendo. The device
+          <p>The Nintendo DS, or simply DS, is a dual-screen handheld game console developed and released by Nintendo.
+            The device
             went on sale in North America on November 21, 2004. The DS, short for "Developers' System" or "Dual Screen",
-            introduced distinctive new features to handheld gaming: two LCD screens working in tandem (the bottom one featuring
-            a touchscreen), a built-in microphone, and support for wireless connectivity. Both screens are encompassed within
-            a clamshell design similar to the Game Boy Advance SP. The Nintendo DS also features the ability for multiple
+            introduced distinctive new features to handheld gaming: two LCD screens working in tandem (the bottom one
+            featuring
+            a touchscreen), a built-in microphone, and support for wireless connectivity. Both screens are encompassed
+            within
+            a clamshell design similar to the Game Boy Advance SP. The Nintendo DS also features the ability for
+            multiple
             DS consoles to directly interact with each other over Wi-Fi within a short range without the need to connect
-            to an existing wireless network. Alternatively, they could interact online using the now-defunct Nintendo Wi-Fi
-            Connection service. Its main competitor was Sony's PlayStation Portable as part of the seventh generation era.
-            It was likened to the Nintendo 64 from the 1990s, which led to several N64 ports such as Super Mario 64 DS and
-            Diddy Kong Racing DS, among others. Prior to its release, the Nintendo DS was marketed as an experimental, "third
-            pillar" in Nintendo's console lineup, meant to complement the Game Boy Advance and GameCube. However, backward
-            compatibility with Game Boy Advance titles and strong sales ultimately established it as the successor to the
+            to an existing wireless network. Alternatively, they could interact online using the now-defunct Nintendo
+            Wi-Fi
+            Connection service. Its main competitor was Sony's PlayStation Portable as part of the seventh generation
+            era.
+            It was likened to the Nintendo 64 from the 1990s, which led to several N64 ports such as Super Mario 64 DS
+            and
+            Diddy Kong Racing DS, among others. Prior to its release, the Nintendo DS was marketed as an experimental,
+            "third
+            pillar" in Nintendo's console lineup, meant to complement the Game Boy Advance and GameCube. However,
+            backward
+            compatibility with Game Boy Advance titles and strong sales ultimately established it as the successor to
+            the
             Game Boy series. On March 2, 2006, Nintendo launched the Nintendo DS Lite, a slimmer and lighter redesign of
-            the original Nintendo DS with brighter screens. On November 1, 2008, Nintendo released the Nintendo DSi, another
-            redesign with several hardware improvements and new features. All Nintendo DS models combined have sold 154.02
-            million units, making it the best selling handheld game console to date, and the second best selling video game
-            console of all time behind Sony's PlayStation 2. The Nintendo DS line was succeeded by the Nintendo 3DS family
-            in 2011, which maintains backward compatibility with nearly all Nintendo DS software. <a href="https://en.wikipedia.org/wiki/Nintendo_DS">Source wikipedia</a>
+            the original Nintendo DS with brighter screens. On November 1, 2008, Nintendo released the Nintendo DSi,
+            another
+            redesign with several hardware improvements and new features. All Nintendo DS models combined have sold
+            154.02
+            million units, making it the best selling handheld game console to date, and the second best selling video
+            game
+            console of all time behind Sony's PlayStation 2. The Nintendo DS line was succeeded by the Nintendo 3DS
+            family
+            in 2011, which maintains backward compatibility with nearly all Nintendo DS software. <a
+              href="https://en.wikipedia.org/wiki/Nintendo_DS">Source wikipedia</a>
           </p>
           <svg id="svg_top_genres_ds" class="top_genres"></svg>
           <svg id="svg_top_publishers_ds"></svg>
         </div>
 
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 70 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var y = d3.scaleBand()
-              .range([height, 0])
-              .padding(0.1);
-
-            var x = d3.scaleLinear()
-              .range([0, width]);
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var genresPs2 = {};
-              var genresPs3 = {};
-              var genresWii = {};
-              var genresDs = {};
-              var genresXbox360 = {};
-
-              data.forEach(function (d) {
-                if (d.Platform == 'PS2') {
-                  if (genresPs2[d.Genre] == null) {
-                    genresPs2[d.Genre] = 0;
-                  }
-                  genresPs2[d.Genre] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'PS3') {
-                  if (genresPs3[d.Genre] == null) {
-                    genresPs3[d.Genre] = 0;
-                  }
-                  genresPs3[d.Genre] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'Wii') {
-                  if (genresWii[d.Genre] == null) {
-                    genresWii[d.Genre] = 0;
-                  }
-                  genresWii[d.Genre] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'X360') {
-                  if (genresXbox360[d.Genre] == null) {
-                    genresXbox360[d.Genre] = 0;
-                  }
-                  genresXbox360[d.Genre] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'DS') {
-                  if (genresDs[d.Genre] == null) {
-                    genresDs[d.Genre] = 0;
-                  }
-                  genresDs[d.Genre] += parseFloat(d.Global_Sales) || 0
-                }
-              });
-
-              for (i = 1; i <= 5; i++) {
-
-                var dictonary = null;
-                if (i == 1) { dictonary = genresPs2; svg3 = d3.select("#svg_top_genres_ps2"); }
-                else if (i == 2) { dictonary = genresPs3; svg3 = d3.select("#svg_top_genres_ps3"); }
-                else if (i == 3) { dictonary = genresWii; svg3 = d3.select("#svg_top_genres_wii"); }
-                else if (i == 4) { dictonary = genresXbox360; svg3 = d3.select("#svg_top_genres_xbox360"); }
-                else { dictonary = genresDs; svg3 = d3.select("#svg_top_genres_ds"); }
-
-                var data = [];
-                for (var index in dictonary) {
-                  data.push({ genre: index, sales: dictonary[index] });
-                }
-
-
-                data.sort((a, b) => (a.sales > b.sales) ? 1 : ((b.sales > a.sales) ? -1 : 0));
-
-                x.domain([0, d3.max(data, function (d) {
-                  return Number(d.sales);
-                })]);
-                y.domain(data.map(function (d) {
-                  return d.genre;
-                }));
-
-
-                var svg = svg3
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
-
-                // add the x Axis
-                svg.append("g")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x));
-
-                // text label for the x axis
-                svg.append("text")             
-                    .attr("transform",
-                          "translate(" + (width/2) + " ," + 
-                                        (height + margin.top + 20) + ")")
-                    .style("text-anchor", "middle")
-                    .text("Sales in millions");
-
-                // add the y Axis
-                svg.append("g")
-                  .call(d3.axisLeft(y))
-
-                // append the rectangles for the bar chart
-                svg.selectAll(".bar")
-                  .data(data)
-                  .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("fill", "steelblue")
-                  .attr("width", function (d) { return x(d.sales); })
-                  .attr("y", function (d) { return y(d.genre); })
-                  .attr("height", y.bandwidth());
-              }
-            });
-          })(); 
-        </script>
-
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 150 },
-              width = 500 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var y = d3.scaleBand()
-              .range([height, 0])
-              .padding(0.1);
-
-            var x = d3.scaleLinear()
-              .range([0, width]);
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var publishersPS2 = {};
-              var publishersPS3 = {};
-              var publishersXbox360 = {};
-              var publishersWii = {};
-              var publishersDs = {};
-
-              data.forEach(function (d) {
-                if (d.Platform == 'PS2') {
-                  if (publishersPS2[d.Publisher] == null) {
-                    publishersPS2[d.Publisher] = 0;
-                  }
-                  publishersPS2[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'PS3') {
-                  if (publishersPS3[d.Publisher] == null) {
-                    publishersPS3[d.Publisher] = 0;
-                  }
-                  publishersPS3[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'X360') {
-                  if (publishersXbox360[d.Publisher] == null) {
-                    publishersXbox360[d.Publisher] = 0;
-                  }
-                  publishersXbox360[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'Wii') {
-                  if (publishersWii[d.Publisher] == null) {
-                    publishersWii[d.Publisher] = 0;
-                  }
-                  publishersWii[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Platform == 'DS') {
-                  if (publishersDs[d.Publisher] == null) {
-                    publishersDs[d.Publisher] = 0;
-                  }
-                  publishersDs[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-              });
-
-              for (i = 1; i <= 5; i++) {
-
-                var dictonary = null;
-                if (i == 1) { dictonary = publishersPS2; svg3 = d3.select("#svg_top_publishers_ps2"); }
-                else if (i == 2) { dictonary = publishersPS3; svg3 = d3.select("#svg_top_publishers_ps3"); }
-                else if (i == 3) { dictonary = publishersWii; svg3 = d3.select("#svg_top_publishers_wii"); }
-                else if (i == 4) { dictonary = publishersXbox360; svg3 = d3.select("#svg_top_publishers_xbox360"); }
-                else { dictonary = publishersDs; svg3 = d3.select("#svg_top_publishers_ds"); }
-
-                var data = [];
-                for (var index in dictonary) {
-                  data.push({ publisher: index, sales: dictonary[index] });
-                }
-
-                data.sort((a, b) => (a.sales > b.sales) ? 1 : ((b.sales > a.sales) ? -1 : 0));
-                data = data.slice(-10);
-
-                x.domain([0, d3.max(data, function (d) {
-                  return Number(d.sales);
-                })]);
-                y.domain(data.map(function (d) {
-                  return d.publisher;
-                }));
-
-
-                var svg = svg3
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
-
-                // add the x Axis
-                svg.append("g")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x));
-
-                // text label for the x axis
-                svg.append("text")             
-                    .attr("transform",
-                          "translate(" + (width/2) + " ," + 
-                                        (height + margin.top + 20) + ")")
-                    .style("text-anchor", "middle")
-                    .text("Sales in millions");
-
-                // add the y Axis
-                svg.append("g")
-                  .call(d3.axisLeft(y))
-
-                // append the rectangles for the bar chart
-                svg.selectAll(".bar")
-                  .data(data)
-                  .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("fill", "steelblue")
-                  .attr("width", function (d) { return x(d.sales); })
-                  .attr("y", function (d) { return y(d.publisher); })
-                  .attr("height", y.bandwidth());
-              }
-            });
-          })(); 
-        </script>
-
         <div>
           <h5>Trends</h5>
-          <p>All the consoles have multiple games released in the years that the console is relevant. The graphs below show
+          <p>All the consoles have multiple games released in the years that the console is relevant. The graphs below
+            show
             in what years the consoles where active and what the most succesfull consoles were.</p>
           <svg id="svg_releases"></svg>
 
@@ -575,227 +339,20 @@
           </div>
         </div>
 
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 70 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var y = d3.scaleBand()
-              .range([height, 0])
-              .padding(0.1);
-
-            var x = d3.scaleLinear()
-              .range([0, width]);
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var releasesPs2 = 0;
-              var releasesPs3 = 0;
-              var releasesXbox360 = 0;
-              var releasesWii = 0;
-              var releasesDS = 0;
-
-              data.forEach(function (d) {
-                if (d.Platform == 'PS2') {
-                  releasesPs2++;
-                }
-                else if (d.Platform == 'PS3') {
-                  releasesPs3++;
-                }
-                else if (d.Platform == 'X360') {
-                  releasesXbox360++;
-                }
-                else if (d.Platform == 'Wii') {
-                  releasesWii++;
-                }
-                else if (d.Platform == 'DS') {
-                  releasesDS++;
-                }
-              });
-
-              var data = [];
-              data.push({ console: 'PS2', releases: releasesPs2 });
-              data.push({ console: 'PS3', releases: releasesPs3 });
-              data.push({ console: 'XBOX360', releases: releasesXbox360 });
-              data.push({ console: 'Wii', releases: releasesWii });
-              data.push({ console: 'DS', releases: releasesDS });
-
-              svg3 = d3.select("#svg_releases");
-
-              console.log(data);
-
-              x.domain([0, d3.max(data, function (d) {
-                return Number(d.releases);
-              })]);
-              y.domain(data.map(function (d) {
-                return d.console;
-              }));
-
-              var svg = svg3
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform",
-                  "translate(" + margin.left + "," + margin.top + ")");
-
-              // add the x Axis
-              svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
-
-              // text label for the x axis
-              svg.append("text")             
-                    .attr("transform",
-                          "translate(" + (width/2) + " ," + 
-                                        (height + margin.top + 20) + ")")
-                    .style("text-anchor", "middle")
-                    .text("Sales in millions");
-
-              // add the y Axis
-              svg.append("g")
-                .call(d3.axisLeft(y))
-
-              // append the rectangles for the bar chart
-              svg.selectAll(".bar")
-                .data(data)
-                .enter().append("rect")
-                .attr("class", "bar")
-                .attr("fill", "steelblue")
-                .attr("width", function (d) { return x(d.releases); })
-                .attr("y", function (d) { return y(d.console); })
-                .attr("height", y.bandwidth());
-            });
-          })(); 
-        </script>
-
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 70 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var x = d3.scaleTime().range([0, width]);
-            var y = d3.scaleLinear().range([height, 0]);
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var releasesPs2 = {};
-              var releasesPs3 = {};
-              var releasesXbox360 = {};
-              var releasesWii = {};
-              var releasesDS = {};
-
-              data.forEach(function (d) {
-                if (d.Year != "N/A") {
-                  if (d.Platform == 'PS2') {
-                    if (releasesPs2[d.Year] == null) {
-                      releasesPs2[d.Year] = 0;
-                    }
-                    releasesPs2[d.Year]++;
-                  }
-                  else if (d.Platform == 'PS3') {
-                    if (releasesPs3[d.Year] == null && d.Year != 'N/A') {
-                      releasesPs3[d.Year] = 0;
-                    }
-                    releasesPs3[d.Year]++;
-                  }
-                  else if (d.Platform == 'X360') {
-                    if (releasesXbox360[d.Year] == null && d.Year != 'N/A') {
-                      releasesXbox360[d.Year] = 0;
-                    }
-                    releasesXbox360[d.Year]++;
-                  }
-                  else if (d.Platform == 'Wii') {
-                    if (releasesWii[d.Year] == null && d.Year != 'N/A') {
-                      releasesWii[d.Year] = 0;
-                    }
-                    releasesWii[d.Year]++;
-                  }
-                  else if (d.Platform == 'DS' && d.Year != '1985' && d.Year != '2020') {
-                    if (releasesDS[d.Year] == null) {
-                      releasesDS[d.Year] = 0;
-                    }
-                    releasesDS[d.Year]++;
-                  }
-                }
-              });
-
-              for (i = 1; i <= 5; i++) {
-                var dictonary = null;
-                var text = "";
-                if (i == 1) { text = "Releases PS2"; dictonary = releasesPs2; svg3 = d3.select("#svg_trend_ps2"); }
-                else if (i == 2) { text = "Releases PS3"; dictonary = releasesPs3; svg3 = d3.select("#svg_trend_ps3"); }
-                else if (i == 3) { text = "Releases XBOX360"; dictonary = releasesXbox360; svg3 = d3.select("#svg_trend_xbox360"); }
-                else if (i == 4) { text = "Releases Wii"; dictonary = releasesWii; svg3 = d3.select("#svg_trend_wii"); }
-                else { text = "Releases DS"; dictonary = releasesDS; svg3 = d3.select("#svg_trend_ds"); }
-
-                var data = [];
-                for (var index in dictonary) {
-                  data.push({ year: index, releases: dictonary[index] });
-                }
-
-                console.log(data);
-
-                var valueline = d3.line()
-                  .x(function (d) { return x(new Date(d.year, 0, 1)); })
-                  .y(function (d) { return y(d.releases); });
-
-                var svg = svg3
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
-
-                // Scale the range of the data
-                x.domain(d3.extent(data, function (d) { return new Date(d.year, 0, 1); }));
-                y.domain([0, 600]);
-
-                // Add the valueline path.
-                svg.append("path")
-                  .data([data])
-                  .attr("class", "line")
-                  .attr("fill", "none")
-                  .attr("stroke", "steelblue")
-                  .attr("d", valueline);
-
-                // add the x Axis
-                svg.append("g")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%Y")));
-
-                // add the y Axis
-                svg.append("g")
-                  .call(d3.axisLeft(y))
-
-                // text label for the y axis
-                svg.append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 0 - margin.left)
-                    .attr("x",0 - (height / 2))
-                    .attr("dy", "1em")
-                    .style("text-anchor", "middle")
-                    .text("Releases");   
-
-                svg.append("text")
-                  .attr("x", (width / 2))
-                  .attr("y", 0)
-                  .attr("text-anchor", "middle")
-                  .style("font-size", "16px")
-                  .text(text);
-              }
-            });
-          })(); 
-        </script>
       </main>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-    crossorigin="anonymous"></script>
+  <script src="js/consoles.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+    integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+  </script>
 </body>
 
 </html>

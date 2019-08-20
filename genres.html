@@ -7,8 +7,8 @@
   <meta name="author" content="">
 
   <link rel="shortcut icon" type="image/png" href="images/icon.png" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <link href="css/custom.css" rel="stylesheet">
 
   <title>Game sales</title>
@@ -96,117 +96,38 @@
       </nav>
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Genre's</h1>
         </div>
-        <p>All the games in the dataset have genre's, on this page we look into the popularity of each genre on each console
-          and of each publisher. This can show on which genre a company is focusing and which genre's are popular on different
+        <p>All the games in the dataset have genre's, on this page we look into the popularity of each genre on each
+          console
+          and of each publisher. This can show on which genre a company is focusing and which genre's are popular on
+          different
           consoles.
         </p>
         <svg id="top5genres"></svg>
 
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 40 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var x = d3.scaleBand().rangeRound([0, width], .05);
-
-            var y = d3.scaleLinear().rangeRound([height, 0]);
-
-            var svg = d3.select("#top5genres")
-              .attr("width", width + margin.left + margin.right)
-              .attr("height", height + margin.top + margin.bottom)
-              .append("g")
-              .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var genres = {};
-              genres['Action'] = 0;
-              genres['Sports'] = 0;
-              genres['Shooter'] = 0;
-              genres['Role-Playing'] = 0;
-              genres['Platform'] = 0;
-
-              data.forEach(function (d) {
-                if (d.Genre == 'Action') {
-                  genres['Action'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Sports') {
-                  genres['Sports'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Shooter') {
-                  genres['Shooter'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Role-Playing') {
-                  genres['Role-Playing'] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Platform') {
-                  genres['Platform'] += parseFloat(d.Global_Sales) || 0
-                }
-              });
-
-              var data = [];
-              data.push({ genre: 'Action', sales: genres['Action'] });
-              data.push({ genre: 'Sports', sales: genres['Sports'] });
-              data.push({ genre: 'Shooter', sales: genres['Shooter'] });
-              data.push({ genre: 'Role-Playing', sales: genres['Role-Playing'] });
-              data.push({ genre: 'Platform', sales: genres['Platform'] });
-
-              x.domain(Object.keys(genres).map(function (d) {
-                return d;
-              }));
-              y.domain([0, d3.max(Object.values(genres), function (d) {
-                return Number(d);
-              })]);
-
-              svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x))
-
-              svg.append("g")
-                .call(d3.axisLeft(y))
-                .append("text")
-                .attr("fill", "#000")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", "0.71em")
-                .attr("text-anchor", "end")
-                .text("Total sales in millions");
-
-              svg.selectAll(".bar")
-                .data(data)
-                .enter().append("rect")
-                .attr("fill", "steelblue")
-                .attr("class", "bar")
-                .attr("x", function (d) {
-                  return 20 + x(d.genre);
-                })
-                .attr("y", function (d) {
-                  return y(Number(d.sales));
-                })
-                .attr("width", x.bandwidth() - 40)
-                .attr("height", function (d) {
-                  return height - y(Number(d.sales));
-                });
-            });
-          })(); 
-        </script>
-
         <div>
           <h5>Action</h5>
-          <p>The action game is a video game genre that emphasizes physical challenges, including hand–eye coordination and
-            reaction-time. The genre includes a large variety of sub-genres, such as fighting games, beat 'em ups, shooter
+          <p>The action game is a video game genre that emphasizes physical challenges, including hand–eye coordination
+            and
+            reaction-time. The genre includes a large variety of sub-genres, such as fighting games, beat 'em ups,
+            shooter
             games and platform games which are widely considered the most important action games, though multiplayer
-            online battle arena and some real-time strategy games are also considered to be action games. In an action game,
-            the player typically controls a character often in the form of a protagonist or avatar. This player character
-            must navigate a level, collecting objects, avoiding obstacles, and battling enemies with their natural skills
-            as well as weapons and other tools at their disposal. At the end of a level or group of levels, the player must
-            often defeat a boss enemy that is more challenging and often a major antagonist in the game's story. Enemy attacks
+            online battle arena and some real-time strategy games are also considered to be action games. In an action
+            game,
+            the player typically controls a character often in the form of a protagonist or avatar. This player
+            character
+            must navigate a level, collecting objects, avoiding obstacles, and battling enemies with their natural
+            skills
+            as well as weapons and other tools at their disposal. At the end of a level or group of levels, the player
+            must
+            often defeat a boss enemy that is more challenging and often a major antagonist in the game's story. Enemy
+            attacks
             and obstacles deplete the player character's health and lives, and the player receives a Game over when they
-            run out of lives. Alternatively, the player gets to the end of the game by finishing a sequence of levels and
+            run out of lives. Alternatively, the player gets to the end of the game by finishing a sequence of levels
+            and
             seeing the credits. But some action games, such as early arcade games, are unbeatable and have an indefinite
             number of levels; with the player's only goal being to get as far as they can to maximize their score.
             <a href="https://en.wikipedia.org/wiki/Action_game">Source wikipedia</a> </p>
@@ -215,12 +136,18 @@
         </div>
         <div>
           <h5>Sports</h5>
-          <p>A sports game is a video game genre that simulates the practice of sports. Most sports have been recreated with
-            a game, including team sports, track and field, extreme sports and combat sports. Some games emphasize actually
-            playing the sport (such as the Madden NFL series), whilst others emphasize strategy and sport management (such
-            as Championship Manager and Out of the Park Baseball). Some, such as Need for Speed, Arch Rivals and Punch-Out!!,
-            satirize the sport for comic effect. This genre has been popular throughout the history of video games and is
-            competitive, just like real-world sports. A number of game series feature the names and characteristics of real
+          <p>A sports game is a video game genre that simulates the practice of sports. Most sports have been recreated
+            with
+            a game, including team sports, track and field, extreme sports and combat sports. Some games emphasize
+            actually
+            playing the sport (such as the Madden NFL series), whilst others emphasize strategy and sport management
+            (such
+            as Championship Manager and Out of the Park Baseball). Some, such as Need for Speed, Arch Rivals and
+            Punch-Out!!,
+            satirize the sport for comic effect. This genre has been popular throughout the history of video games and
+            is
+            competitive, just like real-world sports. A number of game series feature the names and characteristics of
+            real
             teams and players, and are updated annually to reflect real-world changes. Sports genre is one of the oldest
             genres in gaming history. <a href="https://en.wikipedia.org/wiki/Sports_game">Source wikipedia</a></p>
           <svg id="svg_top_publishers_sports" class="top_genres"></svg>
@@ -228,12 +155,18 @@
         </div>
         <div>
           <h5>Shooter</h5>
-          <p>Shooter games are a subgenre of action game, which often test the player's speed and reaction time. It includes
-            many subgenres that have the commonality of focusing on the actions of the avatar using some sort of weapons.
-            Usually this weapon is a gun or some other long-range weapon. A common resource found in many shooter games is
-            ammunition. Most commonly, the purpose of a shooter game is to shoot opponents and proceed through missions without
-            the player character being killed or dying. A shooting game is a genre of video game where the player has limited
-            spatial control of his or her character, and the focus is almost entirely on the defeat of the character's enemies
+          <p>Shooter games are a subgenre of action game, which often test the player's speed and reaction time. It
+            includes
+            many subgenres that have the commonality of focusing on the actions of the avatar using some sort of
+            weapons.
+            Usually this weapon is a gun or some other long-range weapon. A common resource found in many shooter games
+            is
+            ammunition. Most commonly, the purpose of a shooter game is to shoot opponents and proceed through missions
+            without
+            the player character being killed or dying. A shooting game is a genre of video game where the player has
+            limited
+            spatial control of his or her character, and the focus is almost entirely on the defeat of the character's
+            enemies
             using long-range weaponry. <a href="https://en.wikipedia.org/wiki/Shooter_game">Source wikipedia</a></p>
           <svg id="svg_top_publishers_shooter" class="top_genres"></svg>
           <svg id="svg_top_consoles_shooter"></svg>
@@ -241,21 +174,32 @@
         <div>
           <h5>Role-Playing</h5>
           <p>A role-playing game (sometimes spelled roleplaying game and abbreviated to RPG) is a game in which players
-            assume the roles of characters in a fictional setting. Players take responsibility for acting out these roles
-            within a narrative, either through literal acting or through a process of structured decision-making of character
-            development. Actions taken within many games succeed or fail according to a formal system of rules and guidelines.
-            There are several forms of RPG. The original form, sometimes called the tabletop role-playing game (TRPG), is
-            conducted through discussion, whereas in live action role-playing games (LARP) players physically perform their
+            assume the roles of characters in a fictional setting. Players take responsibility for acting out these
+            roles
+            within a narrative, either through literal acting or through a process of structured decision-making of
+            character
+            development. Actions taken within many games succeed or fail according to a formal system of rules and
+            guidelines.
+            There are several forms of RPG. The original form, sometimes called the tabletop role-playing game (TRPG),
+            is
+            conducted through discussion, whereas in live action role-playing games (LARP) players physically perform
+            their
             characters' actions. In both of these forms, an arranger called a game master (GM) usually decides on the
-            rules and setting to be used, acting as referee, while each of the other players plays the role of a single character.
-            Several varieties of RPG also exist in electronic media, such as multi-player text-based MUDs and their graphics-based
-            successors, massively multiplayer online role-playing games (MMORPGs). Role-playing games also include single-player
-            role-playing video games in which players control a character or team who undertake quests, and may include capabilities
+            rules and setting to be used, acting as referee, while each of the other players plays the role of a single
+            character.
+            Several varieties of RPG also exist in electronic media, such as multi-player text-based MUDs and their
+            graphics-based
+            successors, massively multiplayer online role-playing games (MMORPGs). Role-playing games also include
+            single-player
+            role-playing video games in which players control a character or team who undertake quests, and may include
+            capabilities
             that advance using statistical mechanics. These games often share settings and rules with tabletop RPGs, but
             emphasize character advancement more than collaborative storytelling. Despite this variety of forms, some
-            game forms such as trading card games and wargames that are related to role-playing games may not be included.
+            game forms such as trading card games and wargames that are related to role-playing games may not be
+            included.
             Role-playing activity may sometimes be present in such games, but it is not the primary focus. The term is
-            also sometimes used to describe roleplay simulation games and exercises used in teaching, training, and academic
+            also sometimes used to describe roleplay simulation games and exercises used in teaching, training, and
+            academic
             research. <a href="https://en.wikipedia.org/wiki/Role-playing_video_game">Source wikipedia</a></p>
           <svg id="svg_top_publishers_role" class="top_genres"></svg>
           <svg id="svg_top_consoles_role"></svg>
@@ -263,274 +207,62 @@
 
         <div>
           <h5>Platform</h5>
-          <p>Platform games, or platformers, are a video game genre and subgenre of action game. In a platformer the player
-            controlled character must jump and climb between suspended platforms while avoiding obstacles. Environments often
-            feature uneven terrain of varying height that must be traversed. The player often has some control over the height
+          <p>Platform games, or platformers, are a video game genre and subgenre of action game. In a platformer the
+            player
+            controlled character must jump and climb between suspended platforms while avoiding obstacles. Environments
+            often
+            feature uneven terrain of varying height that must be traversed. The player often has some control over the
+            height
             and distance of jumps to avoid letting their character fall to their death or miss necessary jumps. The most
             common unifying element of games of this genre is the jump button, but now there are other alternatives like
             swiping a touchscreen. Other acrobatic maneuvers may factor into the gameplay as well, such as swinging from
-            objects such as vines or grappling hooks, as in Ristar or Bionic Commando, or bouncing from springboards or trampolines,
-            as in Alpha Waves. These mechanics, even in the context of other genres, are commonly called platforming, a verbification
-            of platform. Games where jumping is automated completely, such as 3D games in The Legend of Zelda series, fall
-            outside of the genre. Platform games originated in the early 1980s, which were often about climbing ladders as
-            much as jumping, with 3D successors popularized in the mid-1990s. The term describes games where jumping on platforms
-            is an integral part of the gameplay and came into use after the genre had been established, no later than 1983.
+            objects such as vines or grappling hooks, as in Ristar or Bionic Commando, or bouncing from springboards or
+            trampolines,
+            as in Alpha Waves. These mechanics, even in the context of other genres, are commonly called platforming, a
+            verbification
+            of platform. Games where jumping is automated completely, such as 3D games in The Legend of Zelda series,
+            fall
+            outside of the genre. Platform games originated in the early 1980s, which were often about climbing ladders
+            as
+            much as jumping, with 3D successors popularized in the mid-1990s. The term describes games where jumping on
+            platforms
+            is an integral part of the gameplay and came into use after the genre had been established, no later than
+            1983.
             The genre is frequently combined with elements of other genres, such as the shooter elements in Contra, Beat
-            'em up elements of Viewtiful Joe, adventure elements of Flashback, or role-playing game elements of Castlevania:
-            Symphony of the Night. While commonly associated with console gaming, there have been many important platform
-            games released to video arcades, as well as for handheld game consoles and home computers. North America, Europe
+            'em up elements of Viewtiful Joe, adventure elements of Flashback, or role-playing game elements of
+            Castlevania:
+            Symphony of the Night. While commonly associated with console gaming, there have been many important
+            platform
+            games released to video arcades, as well as for handheld game consoles and home computers. North America,
+            Europe
             and Japan have played major parts in the genre's evolution. Platform themes range from cartoon-like games to
-            science fiction and fantasy epics. At one point, platform games were the most popular genre of video game. At
-            the peak of their popularity, it is estimated that between one-quarter and one-third of console games were platformers.
-            No genre either before or since has been able to achieve a similar market share. As of 2006, the genre had become
+            science fiction and fantasy epics. At one point, platform games were the most popular genre of video game.
+            At
+            the peak of their popularity, it is estimated that between one-quarter and one-third of console games were
+            platformers.
+            No genre either before or since has been able to achieve a similar market share. As of 2006, the genre had
+            become
             far less dominant, representing a two percentage market share as compared to fifteen percent in 1998, but
             is still commercially viable, with a number of games selling in the millions of units. Since 2010, a variety
-            of endless running platformers for mobile devices have brought renewed popularity to the genre. <a href="https://en.wikipedia.org/wiki/Platform_game">Source wikipedia</a></p>
+            of endless running platformers for mobile devices have brought renewed popularity to the genre. <a
+              href="https://en.wikipedia.org/wiki/Platform_game">Source wikipedia</a></p>
           <svg id="svg_top_publishers_platform" class="top_genres"></svg>
           <svg id="svg_top_consoles_platform"></svg>
         </div>
-
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 150 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var y = d3.scaleBand()
-              .range([height, 0])
-              .padding(0.1);
-
-            var x = d3.scaleLinear()
-              .range([0, width]);
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var publishersAction = {};
-              var publishersSports = {};
-              var publishersShooter = {};
-              var publishersRole = {};
-              var publishersPlatform = {};
-
-              data.forEach(function (d) {
-                if (d.Genre == 'Action') {
-                  if (publishersAction[d.Publisher] == null) {
-                    publishersAction[d.Publisher] = 0;
-                  }
-                  publishersAction[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Sports') {
-                  if (publishersSports[d.Publisher] == null) {
-                    publishersSports[d.Publisher] = 0;
-                  }
-                  publishersSports[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Shooter') {
-                  if (publishersShooter[d.Publisher] == null) {
-                    publishersShooter[d.Publisher] = 0;
-                  }
-                  publishersShooter[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Role-Playing') {
-                  if (publishersRole[d.Publisher] == null) {
-                    publishersRole[d.Publisher] = 0;
-                  }
-                  publishersRole[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Platform') {
-                  if (publishersPlatform[d.Publisher] == null) {
-                    publishersPlatform[d.Publisher] = 0;
-                  }
-                  publishersPlatform[d.Publisher] += parseFloat(d.Global_Sales) || 0
-                }
-              });
-
-              for (i = 1; i <= 5; i++) {
-
-                var dictonary = null;
-                if (i == 1) { dictonary = publishersAction; svg3 = d3.select("#svg_top_publishers_action"); }
-                else if (i == 2) { dictonary = publishersSports; svg3 = d3.select("#svg_top_publishers_sports"); }
-                else if (i == 3) { dictonary = publishersShooter; svg3 = d3.select("#svg_top_publishers_shooter"); }
-                else if (i == 4) { dictonary = publishersRole; svg3 = d3.select("#svg_top_publishers_role"); }
-                else { dictonary = publishersPlatform; svg3 = d3.select("#svg_top_publishers_platform"); }
-
-                var data = [];
-                for (var index in dictonary) {
-                  data.push({ publisher: index, sales: dictonary[index] });
-                }
-
-                data.sort((a, b) => (a.sales > b.sales) ? 1 : ((b.sales > a.sales) ? -1 : 0));
-                data = data.slice(-10);
-
-                x.domain([0, d3.max(data, function (d) {
-                  return Number(d.sales);
-                })]);
-                y.domain(data.map(function (d) {
-                  return d.publisher;
-                }));
-
-
-                var svg = svg3
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
-
-                // add the x Axis
-                svg.append("g")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x));
-
-                // text label for the x axis
-                svg.append("text")             
-                    .attr("transform",
-                          "translate(" + (width/2) + " ," + 
-                                        (height + margin.top + 20) + ")")
-                    .style("text-anchor", "middle")
-                    .text("Sales in millions");
-
-                // add the y Axis
-                svg.append("g")
-                  .call(d3.axisLeft(y))
-
-                // append the rectangles for the bar chart
-                svg.selectAll(".bar")
-                  .data(data)
-                  .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("fill", "steelblue")
-                  .attr("width", function (d) { return x(d.sales); })
-                  .attr("y", function (d) { return y(d.publisher); })
-                  .attr("height", y.bandwidth());
-              }
-            });
-          })(); 
-        </script>
-
-        <script>
-          (function () {
-            var margin = { top: 20, right: 20, bottom: 70, left: 70 },
-              width = 600 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-            var y = d3.scaleBand()
-              .range([height, 0])
-              .padding(0.1);
-
-            var x = d3.scaleLinear()
-              .range([0, width]);
-
-            d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
-              var consolesAction = {};
-              var consolesSports= {};
-              var consolesShooter = {};
-              var consolesRole = {};
-              var consolesPlatform = {};
-
-              data.forEach(function (d) {
-                if (d.Genre == 'Action') {
-                  if (consolesAction[d.Platform] == null) {
-                    consolesAction[d.Platform] = 0;
-                  }
-                  consolesAction[d.Platform] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Sports') {
-                  if (consolesSports[d.Platform] == null) {
-                    consolesSports[d.Platform] = 0;
-                  }
-                  consolesSports[d.Platform] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Shooter') {
-                  if (consolesShooter[d.Platform] == null) {
-                    consolesShooter[d.Platform] = 0;
-                  }
-                  consolesShooter[d.Platform] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Role-Playing') {
-                  if (consolesRole[d.Platform] == null) {
-                    consolesRole[d.Platform] = 0;
-                  }
-                  consolesRole[d.Platform] += parseFloat(d.Global_Sales) || 0
-                }
-                else if (d.Genre == 'Platform') {
-                  if (consolesPlatform[d.Platform] == null) {
-                    consolesPlatform[d.Platform] = 0;
-                  }
-                  consolesPlatform[d.Platform] += parseFloat(d.Global_Sales) || 0
-                }
-              });
-
-              for (i = 1; i <= 5; i++) {
-
-                var dictonary = null;
-                if (i == 1) { dictonary = consolesAction; svg3 = d3.select("#svg_top_consoles_action"); }
-                else if (i == 2) { dictonary = consolesSports; svg3 = d3.select("#svg_top_consoles_sports"); }
-                else if (i == 3) { dictonary = consolesShooter; svg3 = d3.select("#svg_top_consoles_shooter"); }
-                else if (i == 4) { dictonary = consolesRole; svg3 = d3.select("#svg_top_consoles_role"); }
-                else { dictonary = consolesPlatform; svg3 = d3.select("#svg_top_consoles_platform"); }
-
-                var data = [];
-                for (var index in dictonary) {
-                  data.push({ console: index, sales: dictonary[index] });
-                }
-
-                data.sort((a, b) => (a.sales > b.sales) ? 1 : ((b.sales > a.sales) ? -1 : 0));
-                data = data.slice(-10);
-
-                x.domain([0, d3.max(data, function (d) {
-                  return Number(d.sales);
-                })]);
-                y.domain(data.map(function (d) {
-                  return d.console;
-                }));
-
-
-                var svg = svg3
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
-
-                // add the x Axis
-                svg.append("g")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x));
-
-                // text label for the x axis
-                svg.append("text")             
-                    .attr("transform",
-                          "translate(" + (width/2) + " ," + 
-                                        (height + margin.top + 20) + ")")
-                    .style("text-anchor", "middle")
-                    .text("Sales in millions");
-
-                // add the y Axis
-                svg.append("g")
-                  .call(d3.axisLeft(y))
-
-                // append the rectangles for the bar chart
-                svg.selectAll(".bar")
-                  .data(data)
-                  .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("fill", "steelblue")
-                  .attr("width", function (d) { return x(d.sales); })
-                  .attr("y", function (d) { return y(d.console); })
-                  .attr("height", y.bandwidth());
-              }
-            });
-          })(); 
-        </script>
       </main>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-    crossorigin="anonymous"></script>
+  <script src="js/genres.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+    integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+  </script>
 </body>
 
 </html>
