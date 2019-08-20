@@ -6,10 +6,10 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<link rel="shortcut icon" type="image/png" href="icon.png" />
+	<link rel="shortcut icon" type="image/png" href="images/icon.png" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	 crossorigin="anonymous">
-	<link href="styles/custom.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
 
 	<title>Game sales</title>
 	<script src="https://d3js.org/d3.v5.min.js"></script>
@@ -121,7 +121,7 @@
 							.attr("transform",
 								"translate(" + margin.left + "," + margin.top + ")");
 
-						d3.csv("https://i344635.hera.fhict.nl/vgsales.csv").then(function (data) {
+						d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
 							var publishers = {};
 							publishers['Nintendo'] = 0;
 							publishers['Activision'] = 0;
@@ -193,7 +193,7 @@
 
 				<div>
 					<!--<h5>Nintendo</h5>-->
-					<img src='nintendo.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
+					<img src='images/nintendo.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
 					<p>Nintendo is a Japanese multinational consumer electronics and video game company headquartered in Kyoto. Nintendo is
 						one of the world's largest video game companies by market capitalization, creating some of the best-known and top-selling
 						video game franchises, such as Mario, The Legend of Zelda, and Pokémon. Founded on 23 September 1889 by Fusajiro Yamauchi,
@@ -206,7 +206,7 @@
 				</div>
 				<div>
 					<!--<h5>Electronic Arts</h5>-->
-					<img src='ea.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
+					<img src='images/ea.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
 					<p>Electronic Arts Inc. (EA) is an American video game company headquartered in Redwood City, California. Founded and incorporated
 						on May 28, 1982 by Trip Hawkins, the company was a pioneer of the early home computer games industry and was notable
 						for promoting the designers and programmers responsible for its games. As of March 2018, Electronic Arts is the second-largest
@@ -222,7 +222,7 @@
 				</div>
 				<div>
 					<!--<h5>Activision</h5>-->
-					<img src='activision.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
+					<img src='images/activision.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
 					<p>Activision Publishing, Inc. is an American video game publisher. It was founded on October 1, 1979 and was the world's
 						first independent developer and distributor of video games for gaming consoles. Its first products were cartridges
 						for the Atari 2600 video console system published from July 1980 for the US market and from August 1981 for the international
@@ -236,7 +236,7 @@
 				</div>
 				<div>
 					<!--<h5>Sony Computer Entertainment</h5>-->
-					<img src='sony.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
+					<img src='images/sony.png' width='150' style="margin-bottom: 20px;margin-top: 20px;" />
 					<p>Sony Interactive Entertainment LLC (SIE) is a multinational video game and digital entertainment company that is a wholly
 						owned subsidiary of Japanese conglomerate Sony. The company was founded in Tokyo, Japan, and established on November
 						16, 1993, as Sony Computer Entertainment (SCE), to handle Sony's venture into video game development through its PlayStation
@@ -266,7 +266,7 @@
 						var x = d3.scaleLinear()
 							.range([0, width]);
 
-						d3.csv("https://i344635.hera.fhict.nl/vgsales.csv").then(function (data) {
+						d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
 							var genresNintedo = {};
 							var genresActivision = {};
 							var genresSony = {};
@@ -373,7 +373,7 @@
 						var x = d3.scaleLinear()
 							.range([0, width]);
 
-						d3.csv("https://i344635.hera.fhict.nl/vgsales.csv").then(function (data) {
+						d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
 							var consolesNintedo = {};
 							var consolesActivision = {};
 							var consolesSony = {};
@@ -495,7 +495,7 @@
 						var x = d3.scaleLinear()
 							.range([0, width]);
 
-						d3.csv("https://i344635.hera.fhict.nl/vgsales.csv").then(function (data) {
+						d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
 							var releasesNintedo = 0;
 							var releasesActivision = 0;
 							var releasesSony = 0;
@@ -579,7 +579,7 @@
 						var x = d3.scaleTime().range([0, width]);
 						var y = d3.scaleLinear().range([height, 0]);
 
-						d3.csv("https://i344635.hera.fhict.nl/vgsales.csv").then(function (data) {
+						d3.csv("http://gamesvisualizations.arjanvanhugten.nl/data/vgsales.csv").then(function (data) {
 							var releasesNintedo = {};
 							var releasesActivision = {};
 							var releasesSony = {};
