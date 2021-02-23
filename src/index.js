@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import App from './App';
+import 'bootstrap/dist/css/bootstrap.css';
+
+import Home from './containers/home/Home';
+import Header from './components/header/Header';
+import Navigation from './components/navigation/Navigation';
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Header title="Evolution of gaming" />
+
+    <div class="container-fluid">
+		  <div class="row">
+        <Navigation />
+
+        <Home />
+      </div>
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
