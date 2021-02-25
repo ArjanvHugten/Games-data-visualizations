@@ -6,8 +6,8 @@ import {
   Route
 } from "react-router-dom";
 
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
 
 import Home from './pages/home/Home';
 import Genres from './pages/genres/Genres';
@@ -19,10 +19,11 @@ import Header from './components/header/Header';
 import Navigation from './components/navigation/Navigation';
 
 import * as serviceWorker from './serviceWorker';
-import ImportData from './importData';
+import { ImportVgSalesData, ImportVgSalesDataWithRating } from './importData';
 
 // Promise that returns the video game sales data
-const vgsales = ImportData();
+const vgsales = ImportVgSalesData();
+const vgsalesWithRatings = ImportVgSalesDataWithRating();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -51,7 +52,7 @@ ReactDOM.render(
               </Route>
 
               <Route path="/ratings">
-                <Ratings data={vgsales}  />
+                <Ratings data={vgsalesWithRatings}  />
               </Route>
             </Switch>
         </div>
