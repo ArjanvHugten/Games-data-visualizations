@@ -9,16 +9,20 @@ import {
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import Home from './containers/home/Home';
-import Genres from './containers/genres/Genres';
-import Consoles from './containers/consoles/Consoles';
-import Publishers from './containers/publishers/Publishers';
-import Ratings from './containers/ratings/Ratings';
+import Home from './pages/home/Home';
+import Genres from './pages/genres/Genres';
+import Consoles from './pages/consoles/Consoles';
+import Publishers from './pages/publishers/Publishers';
+import Ratings from './pages/ratings/Ratings';
 
 import Header from './components/header/Header';
 import Navigation from './components/navigation/Navigation';
 
 import * as serviceWorker from './serviceWorker';
+import ImportData from './importData';
+
+// Promise that returns the video game sales data
+const vgsales = ImportData();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,23 +35,23 @@ ReactDOM.render(
 
             <Switch>
               <Route exact path="/">
-                <Home />
+                <Home data={vgsales} />
               </Route>
 
               <Route path="/genres">
-                <Genres />
+                <Genres data={vgsales}  />
               </Route>
 
               <Route path="/consoles">
-                <Consoles />
+                <Consoles data={vgsales}  />
               </Route>
 
               <Route path="/publishers">
-                <Publishers />
+                <Publishers data={vgsales}  />
               </Route>
 
               <Route path="/ratings">
-                <Ratings />
+                <Ratings data={vgsales}  />
               </Route>
             </Switch>
         </div>

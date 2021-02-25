@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-class Navigation extends React.Component {
-    render() {
-      return (
+function Navigation(props) {
+    return (
         <nav className="col-md-2 d-none d-md-block bg-light sidebar">
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
@@ -28,7 +27,7 @@ class Navigation extends React.Component {
                     <span>Regions</span>
                 </h6>
                 <ul className="nav flex-column mb-2">
-                    {this.props.regions ? this.props.regions.forEach(element => {
+                    {props.regions ? props.regions.forEach(element => {
                         return ( 
                             <li className="nav-item">
                                 <a className="nav-link" href={element.link}>
@@ -40,8 +39,7 @@ class Navigation extends React.Component {
                 </ul>
             </div>
         </nav>
-      );
-    }
+    );
 }
 
 export default Navigation;

@@ -94,3 +94,8 @@ body {
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
+
+.logo {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
