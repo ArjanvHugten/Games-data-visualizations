@@ -1,25 +1,25 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-function Navigation(props) {
+function Navigation() {
     return (
         <nav className="col-md-2 d-none d-md-block bg-light sidebar">
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/">Map</Link>
+                        <NavLink className="nav-link" to="/" exact={true} activeClassName='active'>Map</NavLink>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/genres">Genre's</Link>
+                        <NavLink className="nav-link" to="/genres" activeClassName='active'>Genre's</NavLink>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/consoles">Consoles</Link>
+                        <NavLink className="nav-link" to="/consoles" activeClassName='active'>Consoles</NavLink>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/publishers">Publishers</Link>
+                        <NavLink className="nav-link" to="/publishers" activeClassName='active'>Publishers</NavLink>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/ratings">Ratings</Link>
+                        <NavLink className="nav-link" to="/ratings" activeClassName='active'>Ratings</NavLink>
                     </li>
                 </ul>
 
@@ -27,15 +27,18 @@ function Navigation(props) {
                     <span>Regions</span>
                 </h6>
                 <ul className="nav flex-column mb-2">
-                    {props.regions ? props.regions.forEach(element => {
-                        return ( 
-                            <li className="nav-item">
-                                <a className="nav-link" href={element.link}>
-                                    {element.name}
-                                </a>
-                            </li>
-                        )
-                    }) : ""}
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/region/north-america" activeClassName='active'>North America</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/region/europe" activeClassName='active'>Europe</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/region/japan" activeClassName='active'>Japan</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/region/other" activeClassName='active'>Other</NavLink>
+                    </li>
                 </ul>
             </div>
         </nav>

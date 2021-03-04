@@ -48,15 +48,15 @@ function Ratings(props) {
         </div>
 
         <div id="button-group" className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label id="labelUserScore" className="btn btn-secondary active">
+          <label id="labelUserScore" className={"btn btn-secondary " + (dataOption === 'User' ? "active" : "")}>
               <input type="radio" name="options" id="userScore" value="User" autoComplete="off" checked={dataOption === 'User'} onChange={() => setDataOption('User')}/>
               User
           </label>
-          <label id="labelCriticScore" className="btn btn-secondary">
+          <label id="labelCriticScore" className={"btn btn-secondary " + (dataOption === 'Critic' ? "active" : "")}>
               <input type="radio" name="options" id="criticScore" value="Critic" autoComplete="off" checked={dataOption === 'Critic'} onChange={() => setDataOption('Critic')} />
               Critic
           </label>
-          <label id="labelBoth" className="btn btn-secondary">
+          <label id="labelBoth" className={"btn btn-secondary " + (dataOption === 'Both' ? "active" : "")}>
               <input type="radio" name="options" id="both" value="Both" autoComplete="off" checked={dataOption === 'Both'} onChange={() => setDataOption('Both')} />
               Both
           </label>

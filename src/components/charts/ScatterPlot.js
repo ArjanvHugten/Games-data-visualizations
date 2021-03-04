@@ -13,11 +13,12 @@ function ScatterPlot(props) {
 
     useEffect(() => {
         createScatterPlot();
-      }, []);
+      }, [data, xAxisTitle, yAxisTitle]);
 
     function createScatterPlot() {
         // Creates the chart.
         var chartSvg = d3.select(chartElement.current)
+            .html("")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")

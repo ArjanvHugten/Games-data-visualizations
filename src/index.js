@@ -14,6 +14,7 @@ import Genres from './pages/genres/Genres';
 import Consoles from './pages/consoles/Consoles';
 import Publishers from './pages/publishers/Publishers';
 import Ratings from './pages/ratings/Ratings';
+import Region from './pages/region/Region';
 
 import Header from './components/header/Header';
 import Navigation from './components/navigation/Navigation';
@@ -53,6 +54,10 @@ ReactDOM.render(
 
               <Route path="/ratings">
                 <Ratings data={vgsalesWithRatings}  />
+              </Route>
+              
+              <Route path="/region/:region">
+                <Region data={vgsales}  />
               </Route>
             </Switch>
         </div>

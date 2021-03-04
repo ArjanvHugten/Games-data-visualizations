@@ -12,7 +12,7 @@ function LineChart(props) {
 
     useEffect(() => {
         createLineChart();
-      }, []);
+      }, [data, xAxisTitle, yAxisTitle]);
 
     function createLineChart() {
         // Gets the data and converts it to an array of key value objects.
@@ -29,6 +29,7 @@ function LineChart(props) {
 
         // Creates the chart.
         var chartSvg = d3.select(chartElement.current)
+            .html("")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")

@@ -1,6 +1,77 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Genres() {
+import BarChart from '../../components/charts/BarChart'
+
+function Genres(props) {
+  const [data, setData] = useState({});
+ 
+  useEffect(() => {
+    async function AsyncFetchData() {
+      const result = PrepareData(await props.data);
+      setData(result);
+    }
+
+    AsyncFetchData();
+  }, [props.data]);
+
+  function PrepareData(data) {
+    if(!data){
+      return {};
+    }
+
+    return { GenreSales: GetGenreSales(data), PublisherSales:  GetPublisherSales(data), ConsoleSales:  GetConsoleSales(data) };
+  }
+
+  function GetGenreSales(data) {
+    var genreSalesDictonary = {};
+
+    data.forEach((d) => {
+      if (!genreSalesDictonary[d.Genre]) {
+        genreSalesDictonary[d.Genre] = 0;
+      }
+
+      genreSalesDictonary[d.Genre] += parseFloat(d.Global_Sales) || 0
+    });
+
+    return genreSalesDictonary;
+  }
+
+  function GetPublisherSales(data) {
+    var publisherSalesDictonary = {};
+
+    data.forEach((d) => {
+      if (!publisherSalesDictonary[d.Genre]) {
+        publisherSalesDictonary[d.Genre] = {};
+      }
+
+      if (!publisherSalesDictonary[d.Genre][d.Publisher]) {
+        publisherSalesDictonary[d.Genre][d.Publisher] = 0;
+      }
+      
+      publisherSalesDictonary[d.Genre][d.Publisher] += parseFloat(d.Global_Sales) || 0
+    });
+
+    return publisherSalesDictonary;
+  }
+
+  function GetConsoleSales(data) {
+    var consoleSalesDictonary = {};
+
+    data.forEach((d) => {
+      if (!consoleSalesDictonary[d.Genre]) {
+        consoleSalesDictonary[d.Genre] = {};
+      }
+
+      if (!consoleSalesDictonary[d.Genre][d.Platform]) {
+        consoleSalesDictonary[d.Genre][d.Platform] = 0;
+      }
+      
+      consoleSalesDictonary[d.Genre][d.Platform] += parseFloat(d.Global_Sales) || 0
+    });
+
+    return consoleSalesDictonary;
+  }
+
   return (
     <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -11,6 +82,8 @@ function Genres() {
         All the games in the dataset have genre's, on this page we look into the popularity of each genre on each console
         and of each publisher. This can show on which genre a company is focusing and which genre's are popular on different consoles.
       </p>
+
+      { data.GenreSales && Object.keys(data.GenreSales).length > 0 ? <BarChart data={data.GenreSales} xScaleLinear={false} axisTitle="Sales in millions" topN={5}/> : "" }
 
       <div>
         <h5>Action</h5>
@@ -30,6 +103,9 @@ function Genres() {
           number of levels; with the player's only goal being to get as far as they can to maximize their score. <a href="https://en.wikipedia.org/wiki/Action_game">Source wikipedia</a>
         </p>
 
+
+        { data.PublisherSales && data.PublisherSales["Action"] && Object.keys(data.PublisherSales["Action"]).length > 0  ? <BarChart data={data.PublisherSales["Action"]} xScaleLinear={true} axisTitle="Sales in millions" topN={12} /> : "" }
+        { data.ConsoleSales &&  data.ConsoleSales["Action"] && Object.keys(data.ConsoleSales["Action"]).length > 0  ? <BarChart data={data.ConsoleSales["Action"]} xScaleLinear={true} axisTitle="Sales in millions" topN={10} /> : "" }
       </div>
       <div>
         <h5>Sports</h5>
@@ -45,6 +121,9 @@ function Genres() {
           genres in gaming history. <a href="https://en.wikipedia.org/wiki/Sports_game">Source wikipedia</a>
         </p>
 
+
+        { data.PublisherSales && data.PublisherSales["Sports"] && Object.keys(data.PublisherSales["Sports"]).length > 0  ? <BarChart data={data.PublisherSales["Sports"]} xScaleLinear={true} axisTitle="Sales in millions" topN={12} /> : "" }
+        { data.ConsoleSales &&  data.ConsoleSales["Sports"] && Object.keys(data.ConsoleSales["Sports"]).length > 0  ? <BarChart data={data.ConsoleSales["Sports"]} xScaleLinear={true} axisTitle="Sales in millions" topN={10} /> : "" }
       </div>
       <div>
         <h5>Shooter</h5>
@@ -59,6 +138,8 @@ function Genres() {
           using long-range weaponry. <a href="https://en.wikipedia.org/wiki/Shooter_game">Source wikipedia</a>
         </p>
 
+        { data.PublisherSales && data.PublisherSales["Shooter"] && Object.keys(data.PublisherSales["Shooter"]).length > 0  ? <BarChart data={data.PublisherSales["Shooter"]} xScaleLinear={true} axisTitle="Sales in millions" topN={12} /> : "" }
+        { data.ConsoleSales &&  data.ConsoleSales["Shooter"] && Object.keys(data.ConsoleSales["Shooter"]).length > 0  ? <BarChart data={data.ConsoleSales["Shooter"]} xScaleLinear={true} axisTitle="Sales in millions" topN={10} /> : "" }
       </div>
       <div>
         <h5>Role-Playing</h5>
@@ -83,6 +164,9 @@ function Genres() {
           research. <a href="https://en.wikipedia.org/wiki/Role-playing_video_game">Source wikipedia</a>
         </p>
 
+
+        { data.PublisherSales && data.PublisherSales["Role-Playing"] && Object.keys(data.PublisherSales["Role-Playing"]).length > 0  ? <BarChart data={data.PublisherSales["Role-Playing"]} xScaleLinear={true} axisTitle="Sales in millions" topN={12} /> : "" }
+        { data.ConsoleSales &&  data.ConsoleSales["Role-Playing"] && Object.keys(data.ConsoleSales["Role-Playing"]).length > 0  ? <BarChart data={data.ConsoleSales["Role-Playing"]} xScaleLinear={true} axisTitle="Sales in millions" topN={10} /> : "" }
       </div>
 
       <div>
@@ -114,6 +198,9 @@ function Genres() {
           of endless running platformers for mobile devices have brought renewed popularity to the genre. <a href="https://en.wikipedia.org/wiki/Platform_game">Source wikipedia</a>
         </p>
 
+
+        { data.PublisherSales && data.PublisherSales["Platform"] && Object.keys(data.PublisherSales["Platform"]).length > 0  ? <BarChart data={data.PublisherSales["Platform"]} xScaleLinear={true} axisTitle="Sales in millions" topN={12} /> : "" }
+        { data.ConsoleSales &&  data.ConsoleSales["Platform"] && Object.keys(data.ConsoleSales["Platform"]).length > 0  ? <BarChart data={data.ConsoleSales["Platform"]} xScaleLinear={true} axisTitle="Sales in millions" topN={10} /> : "" }
       </div>
     </main>
   );

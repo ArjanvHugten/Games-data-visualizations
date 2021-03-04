@@ -12,7 +12,7 @@ function BarChart(props) {
 
     useEffect(() => {
         createBarChart();
-      }, []);
+      }, [data, xScaleLinear, axisTitle, topN]);
 
     function createBarChart() {
         // Gets the data and converts it to an array of key value objects.
@@ -40,6 +40,7 @@ function BarChart(props) {
 
         // Creates the chart.
         var chartSvg = d3.select(chartElement.current)
+            .html("")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
