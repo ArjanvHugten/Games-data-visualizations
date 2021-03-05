@@ -5,6 +5,8 @@ import ScatterPlot from '../../components/charts/ScatterPlot'
 function Ratings(props) {
   const [data, setData] = useState([]);
   const [dataOption, setDataOption] = useState("User");
+  const [xLabel, setxLabel] = useState("");
+  const [yLabel, setyLabel] = useState("");
   
   useEffect(() => {
     async function AsyncFetchData() {
@@ -29,12 +31,18 @@ function Ratings(props) {
 
       if(dataOption === "User") {
         scatterPlotData.push({ x: +d.User_Score, y: +d.Global_Sales, label: d.Name, colorGroup: d.Publisher });
+        setxLabel("User score");
+        setyLabel("Global sales");
       }
       else if (dataOption === "Critic") {
         scatterPlotData.push({ x: +d.Critic_Score, y: +d.Global_Sales, label: d.Name, colorGroup: d.Publisher });
+        setxLabel("Critic score");
+        setyLabel("Global sales");
       }
       else {
         scatterPlotData.push({ x: +d.User_Score, y: +d.Critic_Score, label: d.Name, colorGroup: d.Publisher });
+        setxLabel("User score");
+        setyLabel("Critic score");
       }
     });
 
@@ -62,7 +70,7 @@ function Ratings(props) {
           </label>
         </div>
 
-        { data.length > 0 ? <ScatterPlot data={data} /> : "" }
+        { data.length > 0 ? <ScatterPlot data={data} xLabel={xLabel} yLabel={yLabel} /> : "" }
     </main>
   );
 }

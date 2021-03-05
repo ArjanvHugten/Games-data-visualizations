@@ -99,3 +99,30 @@ body {
   margin-bottom: 20px;
   margin-top: 20px;
 }
+
+.map-select-option {
+  float:left; 
+  width: 250px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.map-additional-explaining { 
+  clear: both;
+}
+
+.map-legend {
+  float: left;
+}
+
+.scatterplot-with-hover {
+  position: relative;
+}
+
+.tooltip {
+  padding: 5px;
+  background-color: #F5F5F5;
+  -webkit-box-shadow: 0px 0px 30px -10px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 30px -10px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 30px -10px rgba(0,0,0,0.5);
+}

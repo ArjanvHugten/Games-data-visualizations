@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 
 function ScatterPlot(props) {
-    const { data, xAxisTitle, yAxisTitle } = props;
+    const { data, xAxisTitle, yAxisTitle, xLabel, yLabel } = props;
     const chartElement = useRef(null);
     const visualisationContainer = useRef(null);
 
@@ -55,29 +55,31 @@ function ScatterPlot(props) {
         // it's invisible and its position/contents are defined during mouseover
         var tooltip = d3.select(visualisationContainer.current).append("div")
             .attr("class", "tooltip")
-            .style("opacity", 0);
+            .style("opacity", 0)
+            .style("visibility", "hidden");
 
         // tooltip mouseover event handler
         var tipMouseover = function (event, d) {
             var color = colorScale(d.colorGroup);
 
             var html = d.label + "<br/>" +
-                "<span style='color:" + color + ";'>" + d.colorGroup + "</span><br/>" +
-                "<b> User score: " + d.x + "</b>, Sales: <b/>" + d.y + "</b>";
+                "<span style='color:" + color + ";'>" + d.colorGroup + "</span><br/>" + xLabel + ": <b>" + d.x + "</b>, " + yLabel + ": <b/>" + d.y + "</b>";
 
             tooltip.html(html)
-                .style("left", (event.pageX + 15) + "px")
-                .style("top", (event.pageY - 28) + "px")
+                .style("left", (event.pageX - visualisationContainer.current.getBoundingClientRect().left + 20) + "px")
+                .style("top", (event.pageY - visualisationContainer.current.getBoundingClientRect().top - 20) + "px")
                 .transition()
                 .duration(200) // ms
                 .style("opacity", .9) // started as 0!
+                .style("visibility", "initial")
         };
 
         // tooltip mouseout event handler
         var tipMouseout = function (d) {
             tooltip.transition()
                 .duration(300) // ms
-                .style("opacity", 0); // don't care about position!
+                .style("opacity", 0)
+                .style("visibility", "hidden"); // don't care about position!
         };
 
         // Add data points!
@@ -94,7 +96,7 @@ function ScatterPlot(props) {
     }
 
     return (
-        <div ref={visualisationContainer}>
+        <div className="scatterplot-with-hover" ref={visualisationContainer}>
             <svg ref={chartElement}></svg>
         </div>
     )
