@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
-import vgsales from './assets/data/vgsales.csv';
-import vgsalesWithRating from './assets/data/vgsales_rating.csv';
+import vgsales from '../assets/data/vgsales.csv';
+import vgsalesWithRating from '../assets/data/vgsales_rating.csv';
 
 export const ImportVgSalesData = function (){
     return d3.csv(vgsales).then(data => {

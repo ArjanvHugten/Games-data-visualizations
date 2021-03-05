@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { PrepareDataOneDeep, PrepareDataTwoDeep } from '../../utilities/prepareData'
+
 import BarChart from '../../components/charts/BarChart'
 
 function Genres(props) {
@@ -7,70 +9,21 @@ function Genres(props) {
  
   useEffect(() => {
     async function AsyncFetchData() {
-      const result = PrepareData(await props.data);
-      setData(result);
+      const fetchedData = await props.data;
+
+      if(!fetchedData){
+        setData({});
+      }
+      
+      setData({
+        GenreSales: PrepareDataOneDeep(fetchedData, "Genre", "Global_Sales"), 
+        PublisherSales:  PrepareDataTwoDeep(fetchedData, "Genre", "Publisher", "Global_Sales"), 
+        ConsoleSales:  PrepareDataTwoDeep(fetchedData, "Genre", "Platform", "Global_Sales") 
+      });
     }
 
     AsyncFetchData();
   }, [props.data]);
-
-  function PrepareData(data) {
-    if(!data){
-      return {};
-    }
-
-    return { GenreSales: GetGenreSales(data), PublisherSales:  GetPublisherSales(data), ConsoleSales:  GetConsoleSales(data) };
-  }
-
-  function GetGenreSales(data) {
-    var genreSalesDictonary = {};
-
-    data.forEach((d) => {
-      if (!genreSalesDictonary[d.Genre]) {
-        genreSalesDictonary[d.Genre] = 0;
-      }
-
-      genreSalesDictonary[d.Genre] += parseFloat(d.Global_Sales) || 0
-    });
-
-    return genreSalesDictonary;
-  }
-
-  function GetPublisherSales(data) {
-    var publisherSalesDictonary = {};
-
-    data.forEach((d) => {
-      if (!publisherSalesDictonary[d.Genre]) {
-        publisherSalesDictonary[d.Genre] = {};
-      }
-
-      if (!publisherSalesDictonary[d.Genre][d.Publisher]) {
-        publisherSalesDictonary[d.Genre][d.Publisher] = 0;
-      }
-      
-      publisherSalesDictonary[d.Genre][d.Publisher] += parseFloat(d.Global_Sales) || 0
-    });
-
-    return publisherSalesDictonary;
-  }
-
-  function GetConsoleSales(data) {
-    var consoleSalesDictonary = {};
-
-    data.forEach((d) => {
-      if (!consoleSalesDictonary[d.Genre]) {
-        consoleSalesDictonary[d.Genre] = {};
-      }
-
-      if (!consoleSalesDictonary[d.Genre][d.Platform]) {
-        consoleSalesDictonary[d.Genre][d.Platform] = 0;
-      }
-      
-      consoleSalesDictonary[d.Genre][d.Platform] += parseFloat(d.Global_Sales) || 0
-    });
-
-    return consoleSalesDictonary;
-  }
 
   return (
     <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">

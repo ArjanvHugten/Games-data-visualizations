@@ -1,82 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
+import { PrepareDataOneDeep } from '../../utilities/prepareData'
+
 import BarChart from '../../components/charts/BarChart'
+
+function GetRegionSales(region){
+    switch(region.toLowerCase()){
+        case "north-america":
+            return "NA_Sales";
+        case "europe":
+            return "EU_Sales";
+        case "japan":
+            return "JP_Sales";
+        default:
+            return "Other_Sales";
+    }
+}
 
 function Region(props) {
     const { region } = useParams();
     const [data, setData] = useState({});
    
-    useEffect(() => {
+	useEffect(() => {
         async function AsyncFetchData() {
-            const result = PrepareData(await props.data);
-            setData(result);
+          const fetchedData = await props.data;
+    
+          if(!fetchedData){
+            setData({});
+          }
+          
+          setData({ 
+            GenreSales: PrepareDataOneDeep(fetchedData, "Genre", GetRegionSales(region)), 
+            PublisherSales:  PrepareDataOneDeep(fetchedData, "Publisher", GetRegionSales(region)), 
+            ConsoleSales:  PrepareDataOneDeep(fetchedData, "Platform", GetRegionSales(region)), 
+          });
         }
-  
+    
         AsyncFetchData();
     }, [props.data, region]);
-  
-    function PrepareData(data) {
-      if(!data){
-        return {};
-      }
-  
-      return { GenreSales: GetGenreSales(data), PublisherSales:  GetPublisherSales(data), ConsoleSales:  GetConsoleSales(data) };
-    }
-
-    function GetGenreSales(data) {
-        var genreSalesDictonary = {};
-
-        data.forEach((d) => {
-            if (!genreSalesDictonary[d.Genre]) {
-                genreSalesDictonary[d.Genre] = 0;
-            }
-            genreSalesDictonary[d.Genre] += parseFloat(GetRegionSales(d)) || 0
-        });
-
-        return genreSalesDictonary;
-    }
-    
-    function GetPublisherSales(data) {
-        var publisherSalesDictonary = {};
-
-        data.forEach((d) => {
-            if (!publisherSalesDictonary[d.Publisher]) {
-                publisherSalesDictonary[d.Publisher] = 0;
-            }
-            
-            publisherSalesDictonary[d.Publisher] += parseFloat(GetRegionSales(d)) || 0
-        });
-
-        return publisherSalesDictonary;
-    }
-    
-    function GetConsoleSales(data) {
-        var consoleSalesDictonary = {};
-
-        data.forEach((d) => {
-            if (!consoleSalesDictonary[d.Platform]) {
-                consoleSalesDictonary[d.Platform] = 0;
-            }
-            
-            consoleSalesDictonary[d.Platform] += parseFloat(GetRegionSales(d)) || 0
-        });
-
-        return consoleSalesDictonary;
-    }
-
-    function GetRegionSales(d){
-        switch(region.toLowerCase()){
-            case "north-america":
-                return d.NA_Sales;
-            case "europe":
-                return d.EU_Sales;
-            case "japan":
-                return d.JP_Sales;
-            default:
-                return d.Other_Sales;
-        }
-    }
 
     return (
         <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">

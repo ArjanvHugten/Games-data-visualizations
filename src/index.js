@@ -19,8 +19,8 @@ import Region from './pages/region/Region';
 import Header from './components/header/Header';
 import Navigation from './components/navigation/Navigation';
 
-import * as serviceWorker from './serviceWorker';
-import { ImportVgSalesData, ImportVgSalesDataWithRating } from './importData';
+import * as serviceWorker from './utilities/serviceWorker';
+import { ImportVgSalesData, ImportVgSalesDataWithRating } from './utilities/importData';
 
 // Promise that returns the video game sales data
 const vgsales = ImportVgSalesData();
@@ -70,4 +70,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

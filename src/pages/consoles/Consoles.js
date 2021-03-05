@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { PrepareDataOneDeep, PrepareDataTwoDeep } from '../../utilities/prepareData'
+
 import BarChart from '../../components/charts/BarChart'
 import LineChart from '../../components/charts/LineChart'
 
@@ -8,104 +10,23 @@ function Consoles(props) {
  
   useEffect(() => {
     async function AsyncFetchData() {
-      const result = PrepareData(await props.data);
-      setData(result);
+      const fetchedData = await props.data;
+
+      if(!fetchedData){
+        setData({});
+      }
+      
+      setData({ 
+        ConsoleSales: PrepareDataOneDeep(fetchedData, "Platform", "Global_Sales"), 
+        PublisherSales:  PrepareDataTwoDeep(fetchedData, "Platform", "Publisher", "Global_Sales"), 
+        GenreSales:  PrepareDataTwoDeep(fetchedData, "Platform", "Genre", "Global_Sales"), 
+        ReleasesPerConsole: PrepareDataOneDeep(fetchedData, "Platform"),
+        ReleaseTrends: PrepareDataTwoDeep(fetchedData, "Platform", "Year", "", ['N/A', '1985', '2020'])
+      });
     }
 
     AsyncFetchData();
   }, [props.data]);
-
-  function PrepareData(data) {
-    if(!data){
-      return {};
-    }
-
-    return { ConsoleSales: GetConsoleSales(data), PublisherSales:  GetPublisherSales(data), GenreSales:  GetGenreSales(data), ReleasesPerConsole: GetReleasesPerConsole(data), ReleaseTrends: GetReleaseTrends(data) };
-  }
-
-  function GetConsoleSales(data) {
-    var consolesSalesDictonary = {};
-
-    data.forEach((d) => {
-      if (!consolesSalesDictonary[d.Platform]) {
-        consolesSalesDictonary[d.Platform] = 0;
-      }
-
-      consolesSalesDictonary[d.Platform] += parseFloat(d.Global_Sales) || 0
-    });
-
-    return consolesSalesDictonary;
-  }
-
-  function GetPublisherSales(data) {
-    var publisherSalesDictonary = {};
-
-    data.forEach((d) => {
-      if (!publisherSalesDictonary[d.Platform]) {
-        publisherSalesDictonary[d.Platform] = {};
-      }
-
-      if (!publisherSalesDictonary[d.Platform][d.Publisher]) {
-        publisherSalesDictonary[d.Platform][d.Publisher] = 0;
-      }
-      
-      publisherSalesDictonary[d.Platform][d.Publisher] += parseFloat(d.Global_Sales) || 0
-    });
-
-    return publisherSalesDictonary;
-  }
-
-  function GetGenreSales(data) {
-    var genreSalesDictonary = {};
-
-    data.forEach((d) => {
-      if (!genreSalesDictonary[d.Platform]) {
-        genreSalesDictonary[d.Platform] = {};
-      }
-
-      if (!genreSalesDictonary[d.Platform][d.Genre]) {
-        genreSalesDictonary[d.Platform][d.Genre] = 0;
-      }
-      
-      genreSalesDictonary[d.Platform][d.Genre] += parseFloat(d.Global_Sales) || 0
-    });
-
-    return genreSalesDictonary;
-  }
-
-  function GetReleasesPerConsole(data) {
-    var releasesDictonary = {};
-
-    data.forEach((d) => {
-      if (!releasesDictonary[d.Platform]) {
-        releasesDictonary[d.Platform] = 0;
-      }
-
-      releasesDictonary[d.Platform]++;
-    });
-
-    return releasesDictonary;
-  }
-
-  function GetReleaseTrends(data) {
-    var releasesTrendsDictonary = {};
-
-    data.forEach((d) => {
-      if (d.Year !== "N/A" && d.Year !== '1985' && d.Year !== '2020') {
-        if (!releasesTrendsDictonary[d.Platform]) {
-          releasesTrendsDictonary[d.Platform] = {};
-        }
-  
-        if (!releasesTrendsDictonary[d.Platform][d.Year]) {
-          releasesTrendsDictonary[d.Platform][d.Year] = 0;
-        }
-
-        releasesTrendsDictonary[d.Platform][d.Year]++;
-      }
-    });
-
-    return releasesTrendsDictonary;
-  }
   
   return (
     <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">

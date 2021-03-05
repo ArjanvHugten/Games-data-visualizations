@@ -9,45 +9,46 @@ function Ratings(props) {
   const [yLabel, setyLabel] = useState("");
   
   useEffect(() => {
+    function PrepareData(inputData){
+      let scatterPlotData = [];
+      inputData.forEach(function (d) {
+        // Filter
+        if (d.User_Score <= 0 || d.Critic_Score <= 0 || d.Global_Sales <= 10) {
+          return;
+        }
+  
+        if(dataOption === "User") {
+          scatterPlotData.push({ x: +d.User_Score, y: +d.Global_Sales, label: d.Name, colorGroup: d.Publisher });
+          setxLabel("User score");
+          setyLabel("Global sales");
+        }
+        else if (dataOption === "Critic") {
+          scatterPlotData.push({ x: +d.Critic_Score, y: +d.Global_Sales, label: d.Name, colorGroup: d.Publisher });
+          setxLabel("Critic score");
+          setyLabel("Global sales");
+        }
+        else {
+          scatterPlotData.push({ x: +d.User_Score, y: +d.Critic_Score, label: d.Name, colorGroup: d.Publisher });
+          setxLabel("User score");
+          setyLabel("Critic score");
+        }
+      });
+  
+      return scatterPlotData;
+    }
+
     async function AsyncFetchData() {
-      const result = PrepareData(await props.data);
-      setData(result);
+      const fetchedData = await props.data;
+
+      if(!fetchedData){
+        setData({});
+      }
+
+      setData(PrepareData(fetchedData));
     }
 
     AsyncFetchData();
   }, [props.data, dataOption]);
-
-  function PrepareData(inputData) {
-    if(!inputData){
-      return [];
-    }
-
-    let scatterPlotData = [];
-    inputData.forEach(function (d) {
-      // Filter
-      if (d.User_Score <= 0 || d.Critic_Score <= 0 || d.Global_Sales <= 10) {
-        return;
-      }
-
-      if(dataOption === "User") {
-        scatterPlotData.push({ x: +d.User_Score, y: +d.Global_Sales, label: d.Name, colorGroup: d.Publisher });
-        setxLabel("User score");
-        setyLabel("Global sales");
-      }
-      else if (dataOption === "Critic") {
-        scatterPlotData.push({ x: +d.Critic_Score, y: +d.Global_Sales, label: d.Name, colorGroup: d.Publisher });
-        setxLabel("Critic score");
-        setyLabel("Global sales");
-      }
-      else {
-        scatterPlotData.push({ x: +d.User_Score, y: +d.Critic_Score, label: d.Name, colorGroup: d.Publisher });
-        setxLabel("User score");
-        setyLabel("Critic score");
-      }
-    });
-
-    return scatterPlotData;
-  }
 
   return (
     <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">

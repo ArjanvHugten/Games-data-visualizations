@@ -18,12 +18,47 @@ function Home(props) {
   const [selectedYear, setSelectedYear] = useState("all");
  
   useEffect(() => {
-    async function AsyncFetchData() {
-      const data = await props.data;
-      const result = PrepareData(data);
-      setData(result);
+    function PrepareData(inputData) {
+      var RegionSales = {};
 
-      const dropdownData = GetDropDownData(data);
+      RegionSales['NA'] = 0;
+      RegionSales['EU'] = 0;
+      RegionSales['JP'] = 0;
+      RegionSales['Other'] = 0;
+  
+      inputData.forEach((d) => {
+        if (selectedPublisher !== 'all' && selectedPublisher !== d.Publisher) {
+            return;
+        }
+        if (selectedConsole !== 'all' && selectedConsole !== d.Platform) {
+            return;
+        }
+        if (selectedGenre !== 'all' && selectedGenre !== d.Genre) {
+            return;
+        }
+        if (selectedYear !== 'all' && selectedYear !== d.Year) {
+            return;
+        }
+  
+        RegionSales['NA'] += parseFloat(d.NA_Sales) || 0;
+        RegionSales['EU'] += parseFloat(d.EU_Sales) || 0;
+        RegionSales['JP'] += parseFloat(d.JP_Sales) || 0;
+        RegionSales['Other'] += parseFloat(d.Other_Sales) || 0;
+      });
+  
+      return RegionSales;
+    }
+
+    async function AsyncFetchData() {
+      const fetchedData = await props.data;
+
+      if(!fetchedData){
+        setData({});
+      }
+
+      setData(PrepareData(fetchedData));
+
+      const dropdownData = GetDropDownData(fetchedData);
 
       setPolularPublishers(dropdownData.PopularPublishers);
       setPublishers(dropdownData.Publishers);
@@ -34,45 +69,6 @@ function Home(props) {
 
     AsyncFetchData();
   }, [props.data, selectedPublisher, selectedGenre, selectedConsole, selectedYear]);
-
-  function PrepareData(data) {
-    if(!data){
-      return {};
-    }
-
-    return { RegionSales: GetRegionSales(data) };
-  }
-
-  function GetRegionSales(data) {
-    var RegionSales = {};
-
-    RegionSales['NA'] = 0;
-    RegionSales['EU'] = 0;
-    RegionSales['JP'] = 0;
-    RegionSales['Other'] = 0;
-
-    data.forEach((d) => {
-      if (selectedPublisher !== 'all' && selectedPublisher !== d.Publisher) {
-          return;
-      }
-      if (selectedConsole !== 'all' && selectedConsole !== d.Platform) {
-          return;
-      }
-      if (selectedGenre !== 'all' && selectedGenre !== d.Genre) {
-          return;
-      }
-      if (selectedYear !== 'all' && selectedYear !== d.Year) {
-          return;
-      }
-
-      RegionSales['NA'] += parseFloat(d.NA_Sales) || 0;
-      RegionSales['EU'] += parseFloat(d.EU_Sales) || 0;
-      RegionSales['JP'] += parseFloat(d.JP_Sales) || 0;
-      RegionSales['Other'] += parseFloat(d.Other_Sales) || 0;
-    });
-
-    return RegionSales;
-  }
 
   function GetDropDownData(data) {
     var popularPublishers = [];
@@ -171,7 +167,7 @@ function Home(props) {
           <p>Sales are in millions.</p>
         </div>
 
-        { data.RegionSales && Object.keys(data.RegionSales).length > 0 ? <Map data={data.RegionSales} /> : "" }
+        { data && Object.keys(data).length > 0 ? <Map data={data} /> : "" }
     </main>
   );
 }
